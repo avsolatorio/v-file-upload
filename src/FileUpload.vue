@@ -73,6 +73,8 @@ export default {
         })
         return
       }
+      this.anexo["file"] = file
+      this.anexo["response"] = null
 
       this.upload(file)
     },
@@ -83,7 +85,7 @@ export default {
       fileUpload
         .upload(file, this.additionalData)
         .then(e => {
-          this.anexo = e.target.response
+          this.anexo["respose"] = e.target.response
           this.onChangeAnexo()
           this.$emit('success', e)
           this.progress = 0
