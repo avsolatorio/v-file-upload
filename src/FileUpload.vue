@@ -19,6 +19,7 @@ export default {
     url: { type: String, required: true },
     thumbUrl: { type: Function, default: () => {} },
     accept: { type: String, default: '.png,.jpg' },
+    post_file : {type: Boolean, default: true},
     headers: {
       type: Object,
       default: () => {
@@ -35,11 +36,11 @@ export default {
       }
     },
     requestType: { type: String, default: 'POST' },
-    uniqueId: { type: String, default: '000' }
+    uniqueId: { type: String, default: '000' },
+    progress: 0,
   },
   data() {
     return {
-      progress: 0,
       anexo: {}
     }
   },
@@ -76,7 +77,12 @@ export default {
       this.anexo["file"] = file
       this.anexo["response"] = null
 
-      this.upload(file)
+      if (this.post_file) {
+        this.upload(file)
+      }
+      else {
+        this.onChangeAnexo()
+      }
     },
 
     upload(file) {
